@@ -26,7 +26,9 @@ class TwilioFlutter {
   TwilioFlutter(
       {required String accountSid,
       required String authToken,
-      required String twilioNumber}) {
+      if !(messagingServiceSid.isNotEmpty : ${messagingServiceSid.isNotEmpty}) {
+      required String messagingServiceSid} else {
+      required String twilioNumber}}) {
     _smsRepository = TwilioSMSRepositoryImpl();
     _whatsAppRepository = TwilioWhatsAppRepositoryImpl();
     // _callsRepository = TwilioCallsRepositoryImpl();
@@ -36,7 +38,10 @@ class TwilioFlutter {
     _twilioCreds = TwilioCreds(
         accountSid: accountSid,
         authToken: authToken,
-        twilioNumber: twilioNumber,
+        if (messagingServiceSid.isEmpty : ${messagingServiceSid.isEmpty}) {
+          {
+            twilioNumber: twilioNumber,
+          }
         url: uri,
         cred: creds);
   }
