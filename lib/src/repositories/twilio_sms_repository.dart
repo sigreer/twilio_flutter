@@ -65,7 +65,10 @@ class TwilioSMSRepositoryImpl extends TwilioSmsRepository {
       'Accept': 'application/json'
     };
     var body = {
-      'From': twilioCreds.twilioNumber,
+      if (messagingServiceSid.isNotEmpty : ${str.messagingServiceSid}) {
+        'MessagingServiceSid': messagingServiceSid,} else {
+        'From': twilioCreds.twilioNumber,
+      }
       'To': toNumber,
       'Body': messageBody
     };
